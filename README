@@ -12,6 +12,8 @@ admin:public_key (read, write)
 
 Fork Repo: https://github.com/jfrog/pipelines-devnext
 
+Enable Pipeline Development Environment (PDE) : F12 > Console > localStorage.setItem('PDE', true)
+
 Add YAML in JFrog Pipeline
 
 1. Login to JFrog Platform
