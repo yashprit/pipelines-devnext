@@ -1,3 +1,21 @@
+Pre-Requistes:
+
+Configure SCM in JFrog Pipeline
+
+1. Login to Public Github Account
+2. Create a Token with the following Permission
+repo (all)
+admin:repo_hook (read, write)
+admin:public_key (read, write)
+3. Login to JFrog Platform
+4. Admin > Pipeline > Integration > Add Integration
+
+Fork Repo: https://github.com/jfrog/pipelines-devnext
+
+Add YAML in JFrog Pipeline
+
+1. Login to JFrog Platform
+2. Admin > Pipeline > Pipeline Sources > Add Pipeline Source
 
 Hands-On 1 : Add a Git Repo Resource to the Pipeline
 
