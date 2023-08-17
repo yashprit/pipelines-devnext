@@ -71,7 +71,7 @@ pipelines:
             - task: jfrog/docker-build@v0.0.1
               #repository: pipelines-tasks-virtual
               input:
-                resourceName: msgGit
+                resourceName: {{ .Values.var.resourceName }}
                 dockerImage: "{{ .Values.var.jfrogPlatformInstance }}/{{ .Values.var.dockerRepoName }}/{{ .Values.var.pipelineName }}:${run_number}"
                 dockerFileName: Dockerfile
             - task: jfrog/docker-push@v0.0.2
