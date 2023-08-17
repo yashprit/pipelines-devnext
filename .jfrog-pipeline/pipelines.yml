@@ -1,0 +1,43 @@
+valuesFilePath: ./values.yml
+
+#resources:
+#  - name: src_repo
+#    type: GitRepo
+#    configuration:
+#      gitProvider: {{ .Values.var.gitProvider }}
+#      path: {{ .Values.var.path }}
+#      branches:
+#        include: {{ .Values.var.branches }}
+
+pipelines:
+  - name: devnext_$project_name
+    preRun:
+      execution:
+        onExecute:
+          - echo "Executing Pre Run"
+          #- set_run_name "$res_mvn_artifact_4_event_path"
+          #- update_run_description "Triggered on Event $res_mvn_artifact_4_event_type for Artifact $res_mvn_artifact_4_event_path"
+    postRun:
+      execution:
+        onExecute:
+          - echo "Executing Post Run"
+    steps:
+      - name: build
+        type: Bash
+        configuration:
+          #inputResources:
+          #  - name: src_repo
+        execution:
+          onStart: #being the main execution
+            - echo "Preparing for work..."
+          onExecute: #main()
+            - echo "executing task command 1"
+            - echo "executing task command 2"
+          onSuccess: #only if main execution succeeds
+            - echo "Job well done!"
+          onFailure: ##only if main execution fails
+            - echo "uh oh, something went wrong"
+          onComplete: #always
+            - echo "Cleaning up some stuff"
+            - set_run_name "v$run_number"
+            - update_run_description "Custom Triggered by $step_triggered_by_identity_name"

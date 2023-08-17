@@ -1,0 +1,5 @@
+var:
+  gitProvider: hk_github
+  path: harshkumar1/pipelines-devnext
+  branches: main
+  artifactory: hk_artifactory_1
