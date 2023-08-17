@@ -67,9 +67,8 @@ pipelines:
           onStart:
             - echo "Preparing for work..."
           onSuccess:
-            - task: jfrog/setup-jfrog-cli@v0.1.0
-              input:
-                version: "2.45.0"
+            - curl -fL https://install-cli.jfrog.io | sh
+            - jf --version
             - task: jfrog/docker-build@v0.0.1
               input:
                 gitRepoResource: {{ .Values.var.gitRepoResource }}
