@@ -1,61 +1,63 @@
+---
 valuesFilePath: ./values.yaml
-
 resources:
-  - name: {{ .Values.var.resourceName }}
+  - name:
+      "{ .Values.var.resourceName }": null
     type: GitRepo
     configuration:
-      gitProvider: {{ .Values.var.gitProvider }}
-      path: {{ .Values.var.path }}
+      gitProvider:
+        "{ .Values.var.gitProvider }": null
+      path:
+        "{ .Values.var.path }": null
       branches:
-        include: {{ .Values.var.branches }}
+        include:
+          "{ .Values.var.branches }": null
   - name: mvn_build_info
     type: BuildInfo
     configuration:
-      sourceArtifactory: {{ .Values.var.artifactory }}
-      buildName: {{ .Values.var.pipelineName }}
+      sourceArtifactory:
+        "{ .Values.var.artifactory }": null
+      buildName:
+        "{ .Values.var.pipelineName }": null
       buildNumber: ${run_number}
-
 pipelines:
-  - name: {{ .Values.var.pipelineName }}
+  - name:
+      "{ .Values.var.pipelineName }": null
     preRun:
       execution:
         onExecute:
           - echo "Executing Pre Run"
-          #- update_run_description "Custom Triggered by $step_triggered_by_identity_name"
     postRun:
       execution:
         onExecute:
           - echo "Executing Post Run"
     configuration:
       nodePool: default-dynamic-nodepool
-
     steps:
       - name: sample_step
         type: Bash
-        #configuration:
-          #inputResources:
-          #  - name: src_repo
         execution:
-          onStart: #being the main execution
+          onStart:
             - echo "Preparing for work..."
-          onExecute: #main()
+          onExecute:
             - echo "executing task command 1"
             - echo "executing task command 2"
-          onSuccess: #only if main execution succeeds
+          onSuccess:
             - echo "Job well done!"
-          onFailure: ##only if main execution fails
+          onFailure:
             - echo "uh oh, something went wrong"
-          onComplete: #always
+          onComplete:
             - echo "Cleaning up some stuff"
             - set_run_name "v$run_number"
-
       - name: mvn_build
         type: MvnBuild
         configuration:
           integrations:
-            - name: {{ .Values.var.artifactory }}
+            - name:
+                "{ .Values.var.artifactory }": null
           inputResources:
-            - name: {{ .Values.var.resourceName }}
+            - name:
+                "{ .Values.var.resourceName }": null
           outputResources:
             - name: mvn_build_info
           mvnCommand: clean install
@@ -69,6 +71,6 @@ pipelines:
             - echo "Job well done!"
           onFailure:
             - echo "uh oh, something went wrong"
-          onComplete: #always
+          onComplete:
             - echo "Cleaning up some stuff"
             - save_tests $res_src_repo_resourcePath/target/surefire-reports/
