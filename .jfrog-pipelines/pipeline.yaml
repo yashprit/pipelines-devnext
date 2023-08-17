@@ -1,6 +1,6 @@
 valuesFilePath: ./values.yaml
 resources:
-  - name: {{ .Values.var.resourceName }}
+  - name: {{ .Values.var.gitRepoResource }}
     type: GitRepo
     configuration:
       gitProvider: {{ .Values.var.gitProvider }}
@@ -20,21 +20,21 @@ pipelines:
       execution:
         onExecute:
           - echo "Executing Pre Run"
-          - update_run_description "Custom Triggered by $step_triggered_by_identity_name"
+          #- update_run_description "Custom Triggered by $step_triggered_by_identity_name"
     postRun:
       execution:
         onExecute:
           - echo "Executing Post Run"
-          - set_run_name "v$run_number"
+          - set_run_name "v$run_number.0"
     configuration:
       nodePool: default-dynamic-nodepool
-      jfrogCliVersion: '2'
+      jfrogCliVersion: 2
     steps:
       - name: sample_step
         type: Bash
         configuration: 
           inputResources:
-            - name: {{ .Values.var.resourceName }}
+            - name: {{ .Values.var.gitRepoResource }}
         execution:
           onStart:
             - echo "Preparing for work..."
@@ -56,7 +56,7 @@ pipelines:
           integrations:
             - name: {{ .Values.var.artifactory }}
           inputResources:
-            - name: {{ .Values.var.resourceName }}
+            - name: {{ .Values.var.gitRepoResource }}
           outputResources:
             - name: mvn_build_info
           mvnCommand: clean install
@@ -67,15 +67,12 @@ pipelines:
           onStart:
             - echo "Preparing for work..."
           onSuccess:
-            - echo "Job well done!"
             - task: jfrog/docker-build@v0.0.1
-              #repository: pipelines-tasks-virtual
               input:
-                resourceName: {{ .Values.var.resourceName }}
+                gitRepoResource: {{ .Values.var.gitRepoResource }}
                 dockerImage: "{{ .Values.var.jfrogPlatformInstance }}/{{ .Values.var.dockerRepoName }}/{{ .Values.var.pipelineName }}:${run_number}"
                 dockerFileName: Dockerfile
             - task: jfrog/docker-push@v0.0.2
-              #repository: pipelines-tasks-virtual
               input:
                 dockerImage: "{{ .Values.var.jfrogPlatformInstance }}/{{ .Values.var.dockerRepoName }}/{{ .Values.var.pipelineName }}:${run_number}"
                 xrayScan: "false"
@@ -84,4 +81,4 @@ pipelines:
             - echo "uh oh, something went wrong"
           onComplete:
             - echo "Cleaning up some stuff"
-            - save_tests $res_{{ .Values.var.resourceName }}_resourcePath/target/surefire-reports/
+            - save_tests $res_{{ .Values.var.gitRepoResource }}_resourcePath/target/surefire-reports/
