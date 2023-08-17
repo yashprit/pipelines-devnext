@@ -1,7 +1,7 @@
 valuesFilePath: ./values.yaml
 
 #resources:
-#  - name: src_repo
+#  - name: {{ .Values.var.resourceName }}
 #    type: GitRepo
 #    configuration:
 #      gitProvider: {{ .Values.var.gitProvider }}
@@ -24,7 +24,7 @@ pipelines:
     configuration:
       nodePool: default-dynamic-nodepool
     steps:
-      - name: build
+      - name: sample_step
         type: Bash
         #configuration:
           #inputResources:
@@ -43,3 +43,27 @@ pipelines:
             - echo "Cleaning up some stuff"
             - set_run_name "v$run_number"
             - update_run_description "Custom Triggered by $step_triggered_by_identity_name"
+
+      - name: mvn_build
+        type: MvnBuild
+        configuration:
+          integrations:
+            - name: {{ .jfrog-pipelines.localArtifactory }}
+          inputResources:
+            - name: {{ .Values.var.resourceName }}
+          outputResources:
+            - name: mvn_build_info
+          mvnCommand: clean install
+          forceXrayScan: false
+          failOnScan: false
+          autoPublishBuildInfo: true
+        execution:
+          onStart:
+            - echo "Preparing for work..."
+          onSuccess:
+            - echo "Job well done!"
+          onFailure:
+            - echo "uh oh, something went wrong"
+          onComplete: #always
+            - echo "Cleaning up some stuff"
+            - save_tests $res_src_repo_resourcePath/target/surefire-reports/
