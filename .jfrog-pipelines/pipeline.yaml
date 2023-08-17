@@ -83,4 +83,4 @@ pipelines:
             - echo "uh oh, something went wrong"
           onComplete:
             - echo "Cleaning up some stuff"
-            - save_tests $res_src_repo_resourcePath/target/surefire-reports/
+            - save_tests $res_{{ .Values.var.resourceName }}_resourcePath/target/surefire-reports/
