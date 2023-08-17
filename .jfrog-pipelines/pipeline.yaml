@@ -11,7 +11,7 @@ resources:
   - name: mvn_build_info
     type: BuildInfo
     configuration:
-      sourceArtifactory: {{ .Values.var.artifactory }}
+      sourceArtifactory: {{ .jfrog-pipelines.localArtifactory }}
       buildName: {{ .Values.var.pipelineName }}
       buildNumber: ${run_number}
 
