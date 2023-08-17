@@ -21,6 +21,8 @@ pipelines:
       execution:
         onExecute:
           - echo "Executing Post Run"
+    configuration:
+      nodePool: default-dynamic-nodepool
     steps:
       - name: build
         type: Bash
