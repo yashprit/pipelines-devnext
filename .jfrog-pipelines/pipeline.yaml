@@ -24,7 +24,7 @@ pipelines:
     steps:
       - name: build
         type: Bash
-        configuration:
+        #configuration:
           #inputResources:
           #  - name: src_repo
         execution:
