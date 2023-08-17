@@ -10,7 +10,7 @@ valuesFilePath: ./values.yaml
 #        include: {{ .Values.var.branches }}
 
 pipelines:
-  - name: devnext_${project_name}
+  - name: {{ .Values.var.pipelineName }}
     preRun:
       execution:
         onExecute:

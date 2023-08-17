@@ -1,4 +1,5 @@
 var:
+  pipelineName: devnext_$project_name
   gitProvider: hk_github
   path: harshkumar1/pipelines-devnext
   branches: main
