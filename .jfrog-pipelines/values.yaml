@@ -1,6 +1,6 @@
 var:
   pipelineName: devnext_workshop_1
-  gitRepoResource: devnext_sample
+  gitRepoResource: devnext_workshop_1
   gitProvider: hk_github
   path: harshkumar1/pipelines-devnext
   branches: main
