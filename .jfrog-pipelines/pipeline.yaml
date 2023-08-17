@@ -11,7 +11,7 @@ resources:
   - name: mvn_build_info
     type: BuildInfo
     configuration:
-      sourceArtifactory: {{ .jfrog-pipelines.localArtifactory }}
+      sourceArtifactory: {{ .Values.var.artifactory }}
       buildName: {{ .Values.var.pipelineName }}
       buildNumber: ${run_number}
 
@@ -53,7 +53,7 @@ pipelines:
         type: MvnBuild
         configuration:
           integrations:
-            - name: {{ .jfrog-pipelines.localArtifactory }}
+            - name: {{ .Values.var.artifactory }}
           inputResources:
             - name: {{ .Values.var.resourceName }}
           outputResources:
