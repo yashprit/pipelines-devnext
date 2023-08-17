@@ -21,14 +21,14 @@ pipelines:
       execution:
         onExecute:
           - echo "Executing Pre Run"
-          #- set_run_name "$res_mvn_artifact_4_event_path"
-          #- update_run_description "Triggered on Event $res_mvn_artifact_4_event_type for Artifact $res_mvn_artifact_4_event_path"
+          #- update_run_description "Custom Triggered by $step_triggered_by_identity_name"
     postRun:
       execution:
         onExecute:
           - echo "Executing Post Run"
     configuration:
       nodePool: default-dynamic-nodepool
+
     steps:
       - name: sample_step
         type: Bash
@@ -48,7 +48,6 @@ pipelines:
           onComplete: #always
             - echo "Cleaning up some stuff"
             - set_run_name "v$run_number"
-            - update_run_description "Custom Triggered by $step_triggered_by_identity_name"
 
       - name: mvn_build
         type: MvnBuild
