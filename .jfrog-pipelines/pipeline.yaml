@@ -32,9 +32,9 @@ pipelines:
     steps:
       - name: sample_step
         type: Bash
-       # configuration: 
-        #  inputResources:
-         #   - name: {{ .Values.var.gitRepoResource }}
+        configuration: 
+          inputResources:
+            - name: {{ .Values.var.gitRepoResource }}
         execution:
           onStart:
             - echo "Preparing for work..."
