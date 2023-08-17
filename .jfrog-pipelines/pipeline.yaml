@@ -20,10 +20,12 @@ pipelines:
       execution:
         onExecute:
           - echo "Executing Pre Run"
+          - update_run_description "Custom Triggered by $step_triggered_by_identity_name"
     postRun:
       execution:
         onExecute:
           - echo "Executing Post Run"
+          - set_run_name "v$run_number"
     configuration:
       nodePool: default-dynamic-nodepool
     steps:
@@ -41,10 +43,12 @@ pipelines:
             - echo "uh oh, something went wrong"
           onComplete:
             - echo "Cleaning up some stuff"
-            - set_run_name "v$run_number"
+      
       - name: mvn_build
         type: MvnBuild
         configuration:
+          inputSteps:
+            - name: sample_step
           integrations:
             - name: {{ .Values.var.artifactory }}
           inputResources:
