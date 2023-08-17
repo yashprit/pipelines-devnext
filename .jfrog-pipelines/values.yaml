@@ -4,4 +4,6 @@ var:
   gitProvider: hk_github
   path: harshkumar1/pipelines-devnext
   branches: main
-  artifactory: "hk_artifactory_1"
+  artifactory: hk_artifactory_1
+  dockerRepoName: cpe-docker-local-devnext
+  jfrogPlatformInstance: devnextsaas1.jfrog.io

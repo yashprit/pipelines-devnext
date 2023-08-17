@@ -67,6 +67,18 @@ pipelines:
             - echo "Preparing for work..."
           onSuccess:
             - echo "Job well done!"
+            - task: jfrog/docker-build@v0.0.1
+              repository: pipelines-tasks-virtual
+              input:
+                resourceName: msgGit
+                dockerImage: "{{ .Values.var.jfrogPlatformInstance }}/{{ .Values.var.dockerRepoName }}/{{ .Values.var.pipelineName }}:${run_number}"
+                dockerFileName: Dockerfile
+            - task: jfrog/docker-push@v0.0.2
+              repository: pipelines-tasks-virtual
+              input:
+                dockerImage: "{{ .Values.var.jfrogPlatformInstance }}/{{ .Values.var.dockerRepoName }}/{{ .Values.var.pipelineName }}:${run_number}"
+                xrayScan: "false"
+                failOnScan: "false"
           onFailure:
             - echo "uh oh, something went wrong"
           onComplete:
