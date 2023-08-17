@@ -31,6 +31,9 @@ pipelines:
     steps:
       - name: sample_step
         type: Bash
+        configuration: 
+          inputResources:
+            - name: {{ .Values.var.resourceName }}
         execution:
           onStart:
             - echo "Preparing for work..."
@@ -47,8 +50,8 @@ pipelines:
       - name: mvn_build
         type: MvnBuild
         configuration:
-          inputSteps:
-            - name: sample_step
+          #inputSteps:
+            #- name: sample_step
           integrations:
             - name: {{ .Values.var.artifactory }}
           inputResources:
