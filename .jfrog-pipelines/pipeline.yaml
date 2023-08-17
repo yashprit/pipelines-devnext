@@ -28,6 +28,7 @@ pipelines:
           - set_run_name "v$run_number"
     configuration:
       nodePool: default-dynamic-nodepool
+      jfrogCliVersion: '2'
     steps:
       - name: sample_step
         type: Bash
