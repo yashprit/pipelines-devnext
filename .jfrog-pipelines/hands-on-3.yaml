@@ -1,0 +1,35 @@
+valuesFilePath: ./values.yaml
+
+pipelines:
+  - name: devnext-pre-post-run-hands-on-{{ .Values.var.project }}
+    preRun:
+      execution:
+        onExecute:
+          - echo "Executing Pre Run"
+          - update_run_description "Custom Triggered by $step_triggered_by_identity_name"
+    postRun:
+      execution:
+        onExecute:
+          - echo "Executing Post Run"
+          - set_run_name "v$run_number.0"
+    configuration:
+      nodePool: default-dynamic-nodepool
+      jfrogCliVersion: 2
+    steps:
+      - name: sample_step
+        type: Bash
+        configuration: 
+          inputResources:
+            - name: src_repo_{{ .Values.var.project }}
+        execution:
+          onStart:
+            - echo "Preparing for work..."
+          onExecute:
+            - echo "executing task command 1"
+            - echo "executing task command 2"
+          onSuccess:
+            - echo "Job well done!"
+          onFailure:
+            - echo "uh oh, something went wrong"
+          onComplete:
+            - echo "Cleaning up some stuff"

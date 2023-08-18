@@ -1,0 +1,17 @@
+valuesFilePath: ./values.yaml
+
+pipelines:
+  - name: devnext-resources-hands-on-{{ .Values.var.project }}
+    configuration:
+      nodePool: default-dynamic-nodepool
+      jfrogCliVersion: 2
+    steps:
+      - name: sample_step
+        type: Bash
+        configuration: 
+          inputResources:
+            - name: src_repo_{{ .Values.var.project }}
+        execution:
+          onExecute:
+            - echo "executing task command 1"
+            - echo "executing task command 2"
