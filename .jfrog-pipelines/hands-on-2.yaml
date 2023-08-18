@@ -13,6 +13,7 @@ pipelines:
             - name: artifactory #{{ .jfrog-pipelines.localArtifactory }}
           inputResources:
             - name: src_repo_{{ .Values.var.project }}
+            - name: {{ .Values.var.gitRepoResource }}
           outputResources:
             - name: mvn_build_info_{{ .Values.var.project }}
           mvnCommand: test
