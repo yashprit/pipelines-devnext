@@ -1,7 +1,7 @@
 valuesFilePath: ./values.yaml
 
 pipelines:
-  - name: devnext-pre-post-run-hands-on-{{ .Values.var.project }}
+  - name: devnext_pre_post_run_hands_on_{{ .Values.var.project }}
     preRun:
       execution:
         onExecute:
