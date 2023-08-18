@@ -1,4 +1,4 @@
-sample:
+var:
   project: devnext_workshop_102
   gitProvider: github
   path: yashprit/pipelines-devnext
