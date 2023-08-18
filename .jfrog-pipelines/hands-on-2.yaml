@@ -13,7 +13,6 @@ pipelines:
             - name: artifactory #{{ .jfrog-pipelines.localArtifactory }}
           inputResources:
             - name: src_repo_{{ .Values.var.project }}
-            - name: {{ .Values.var.gitRepoResource }}
           outputResources:
             - name: mvn_build_info_{{ .Values.var.project }}
           mvnCommand: test
@@ -26,7 +25,7 @@ pipelines:
             - jf --version
             - task: jfrog/docker-build@v0.0.1
               input:
-                gitRepoResource: {{ .Values.var.gitRepoResource }}
+                gitRepoResource: src_repo_{{ .Values.var.project }}
                 dockerImage: "{{ .Values.var.jfrogPlatformInstance }}/cpe-docker-local-devnext/b_java_{{ .Values.var.project }}:${run_number}"
                 dockerFileName: Dockerfile
             - task: jfrog/docker-push@v0.0.2
