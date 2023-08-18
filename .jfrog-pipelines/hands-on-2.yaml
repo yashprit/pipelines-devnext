@@ -9,8 +9,6 @@ pipelines:
       - name: mvn_build
         type: MvnBuild
         configuration:
-          inputSteps:
-            - name: sample_step
           integrations:
             - name: {{ .jfrog-pipelines.localArtifactory }}
           inputResources:
