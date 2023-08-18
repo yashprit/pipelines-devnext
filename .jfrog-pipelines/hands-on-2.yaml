@@ -10,7 +10,7 @@ pipelines:
         type: MvnBuild
         configuration:
           integrations:
-            - name: {{ .jfrog-pipelines.localArtifactory }}
+            - name: artifactory #{{ .jfrog-pipelines.localArtifactory }}
           inputResources:
             - name: src_repo_{{ .Values.var.project }}
           outputResources:

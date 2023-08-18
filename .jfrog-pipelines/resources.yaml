@@ -11,6 +11,6 @@ resources:
   - name: mvn_build_info_{{ .Values.var.project }}
     type: BuildInfo
     configuration:
-      sourceArtifactory: {{ .jfrog-pipelines.localArtifactory }}
+      sourceArtifactory: artifactory #{{ .jfrog-pipelines.localArtifactory }}
       buildName: devnext-java-hands-on-{{ .Values.var.project }}
       buildNumber: ${run_number}
