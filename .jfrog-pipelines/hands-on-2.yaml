@@ -1,7 +1,7 @@
 valuesFilePath: ./values.yaml
 
 pipelines:
-  - name: 2_java_hands_on_{{ .Values.var.project }}
+  - name: b_java_{{ .Values.var.project }}
     configuration:
       nodePool: default-dynamic-nodepool
       jfrogCliVersion: 2
