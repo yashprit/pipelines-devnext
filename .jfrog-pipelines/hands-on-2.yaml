@@ -16,7 +16,7 @@ pipelines:
           inputResources:
             - name: src_repo_{{ .Values.var.project }}
           outputResources:
-            - name: mvn_build_info__{{ .Values.var.project }}
+            - name: mvn_build_info_{{ .Values.var.project }}
           mvnCommand: test
           forceXrayScan: false
           failOnScan: false
