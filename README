@@ -1,5 +1,14 @@
-Pre-Requistes:
+## Pre-Requistes:
+1. Fork this project to your Github Repo
+2. Create a Token with the following permission.. Keep this token handy..
+repo (all)
+admin:repo_hook (read, write)
+admin:public_key (read, write)
+3. Join us on 22-Aug for session
 
+## Integrations
+JFrog Pipelines has a concept of Integrations. Integrations allows us to integrate with 2p / 3p tools like AWS, 
+ which is primarily is
 Configure SCM in JFrog Pipeline
 
 1. Login to Public Github Account
