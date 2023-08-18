@@ -1,7 +1,7 @@
 valuesFilePath: ./values.yaml
 
 pipelines:
-  - name: devnext_resources_hands_on_{{ .Values.var.project }}
+  - name: 1_resources_hands_on_{{ .Values.var.project }}
     configuration:
       nodePool: default-dynamic-nodepool
       jfrogCliVersion: 2
