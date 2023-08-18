@@ -9,10 +9,10 @@ admin:public_key (read, write)
 ## Integrations
 JFrog Pipelines has a concept of Integrations. Integrations allows us to integrate with 2p / 3p tools like AWS, k8s, Github
 
-### Configure SCM in JFrog Pipeline
+#### Configure SCM in JFrog Pipeline
 1. Login to JFrog Platform
 2. Admin > Pipeline > Integration > Add Integration
-Name of Integration: <yourinitials>_github
+Name of Integration: ```<yourinitials>_github```
 
 ## Pipeline Development Environment (PDE)
 PDE is an IDE for JFrog Pipelines. Its being built with the focus to enable building pipelines easily. 
