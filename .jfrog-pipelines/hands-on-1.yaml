@@ -8,9 +8,9 @@ pipelines:
     steps:
       - name: sample_step
         type: Bash
-        # configuration: 
-        #   inputResources:
-        #     - name: src_repo_{{ .Values.var.project }}
+        configuration: 
+          inputResources:
+            - name: src_repo_{{ .Values.var.project }}
         execution:
           onExecute:
             - echo "executing task command 1"
