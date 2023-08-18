@@ -1,0 +1,6 @@
+var:
+  project: devnext_workshop_1
+  gitProvider: hk_github
+  path: harshkumar1/pipelines-devnext
+  jfrogPlatformInstance: devnextsaas1.jfrog.io
+  gitRepoResource: hk_devnext_sample

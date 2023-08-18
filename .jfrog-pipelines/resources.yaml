@@ -1,0 +1,16 @@
+valuesFilePath: ./values.yaml
+
+resources:
+  - name: src_repo_{{ .Values.var.project }}
+    type: GitRepo
+    configuration:
+      gitProvider: {{ .Values.var.gitProvider }}
+      path: {{ .Values.var.path }}
+      branches:
+        include: main
+  - name: mvn_build_info_{{ .Values.var.project }}
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: artifactory #{{ .jfrog-pipelines.localArtifactory }}
+      buildName: devnext-java-hands-on-{{ .Values.var.project }}
+      buildNumber: ${run_number}

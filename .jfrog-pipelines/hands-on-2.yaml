@@ -1,0 +1,38 @@
+valuesFilePath: ./values.yaml
+
+pipelines:
+  - name: b_java_{{ .Values.var.project }}
+    configuration:
+      nodePool: default-dynamic-nodepool
+      jfrogCliVersion: 2
+    steps:      
+      - name: mvn_build
+        type: MvnBuild
+        configuration:
+          integrations:
+            - name: artifactory #{{ .jfrog-pipelines.localArtifactory }}
+          inputResources:
+            - name: src_repo_{{ .Values.var.project }}
+            - name: {{ .Values.var.gitRepoResource }}
+          outputResources:
+            - name: mvn_build_info_{{ .Values.var.project }}
+          mvnCommand: test
+          forceXrayScan: false
+          failOnScan: false
+          autoPublishBuildInfo: true
+        execution:
+          onSuccess:
+            - curl -fL https://install-cli.jfrog.io | sh
+            - jf --version
+            - task: jfrog/docker-build@v0.0.1
+              input:
+                gitRepoResource: {{ .Values.var.gitRepoResource }}
+                dockerImage: "{{ .Values.var.jfrogPlatformInstance }}/cpe-docker-local-devnext/b_java_{{ .Values.var.project }}:${run_number}"
+                dockerFileName: Dockerfile
+            - task: jfrog/docker-push@v0.0.2
+              input:
+                dockerImage: "{{ .Values.var.jfrogPlatformInstance }}/cpe-docker-local-devnext/b_java_{{ .Values.var.project }}:${run_number}"
+                xrayScan: "false"
+                failOnScan: "false"
+          onComplete:
+            - save_tests $res_{{ .Values.var.gitRepoResource }}_resourcePath/target/surefire-reports/
